@@ -27,8 +27,7 @@ class ViewController: NSViewController {
     
     func shell(args: String...) -> Int32 {
         let task = NSTask()
-        //task.launchPath = "/usr/bin/env"
-        task.launchPath = "/"
+        task.launchPath = "/usr/bin/env"
         task.arguments = args
         task.launch()
         task.waitUntilExit()
@@ -36,7 +35,27 @@ class ViewController: NSViewController {
     }
 
     @IBAction func commandAction(sender: AnyObject) {
-        shell(commandField.stringValue)
+        //shell(commandField.stringValue)
+        // Create a Task instance
+        let task = NSTask()
+        
+        // Set the task parameters
+        task.launchPath = "/usr/bin/env"
+        task.arguments = [commandField.stringValue]
+        
+        // Create a Pipe and make the task
+        // put all the output there
+        let pipe = NSPipe()
+        task.standardOutput = pipe
+        
+        // Launch the task
+        task.launch()
+        
+        // Get the data
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = NSString(data: data, encoding: NSUTF8StringEncoding)
+        
+        print(output!)
     }
     
 }
