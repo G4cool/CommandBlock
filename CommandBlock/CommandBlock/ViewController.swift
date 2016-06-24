@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Foundation
 
 class ViewController: NSViewController {
 
@@ -24,10 +25,17 @@ class ViewController: NSViewController {
         }
     }
     
-    
+    func shell(args: String...) -> Int32 {
+        let task = NSTask()
+        task.launchPath = "/usr/bin/env"
+        task.arguments = args
+        task.launch()
+        task.waitUntilExit()
+        return task.terminationStatus
+    }
 
     @IBAction func commandAction(sender: AnyObject) {
-        
+        shell(commandField.text)
     }
     
 }
