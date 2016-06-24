@@ -40,7 +40,8 @@ class ViewController: NSViewController {
         let task = NSTask()
         
         // Set the task parameters
-        task.launchPath = "/usr/bin/env"
+        //task.launchPath = "/usr/bin/env"
+        task.launchPath = "/Users/Luca"
         task.arguments = [commandField.stringValue]
         
         // Create a Pipe and make the task
