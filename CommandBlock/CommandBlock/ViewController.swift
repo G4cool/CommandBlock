@@ -6,6 +6,8 @@
 //  Copyright © 2016 Space!, Ink. All rights reserved.
 //
 
+//#!/usr/bin/env swift
+
 import Cocoa
 import Foundation
 
@@ -36,27 +38,19 @@ class ViewController: NSViewController {
 
     @IBAction func commandAction(sender: AnyObject) {
         //shell(commandField.stringValue)
-        // Create a Task instance
-        let task = NSTask()
         
-        // Set the task parameters
-        //task.launchPath = "/usr/bin/env"
-        task.launchPath = "/Users/Luca"
+        var task:NSTask = NSTask()
+        var pipe:NSPipe = NSPipe()
+        
+        task.launchPath = "/bin/ls"
         task.arguments = [commandField.stringValue]
-        
-        // Create a Pipe and make the task
-        // put all the output there
-        let pipe = NSPipe()
         task.standardOutput = pipe
-        
-        // Launch the task
         task.launch()
         
-        // Get the data
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = NSString(data: data, encoding: NSUTF8StringEncoding)
-        
-        print(output!)
+        var handle = pipe.fileHandleForReading
+        var data = handle.readDataToEndOfFile()
+        var result_s = NSString(data: data, encoding: NSUTF8StringEncoding)
+        print(result_s)
     }
     
 }
