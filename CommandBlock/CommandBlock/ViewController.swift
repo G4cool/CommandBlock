@@ -27,7 +27,8 @@ class ViewController: NSViewController {
     
     func shell(args: String...) -> Int32 {
         let task = NSTask()
-        task.launchPath = "/usr/bin/env"
+        //task.launchPath = "/usr/bin/env"
+        task.launchPath = "/"
         task.arguments = args
         task.launch()
         task.waitUntilExit()
@@ -35,7 +36,7 @@ class ViewController: NSViewController {
     }
 
     @IBAction func commandAction(sender: AnyObject) {
-        shell(commandField.text)
+        shell(commandField.stringValue)
     }
     
 }
