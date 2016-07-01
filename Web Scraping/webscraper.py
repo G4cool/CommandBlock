@@ -4,8 +4,8 @@ import re
 from Tkinter import *
 import Tkinter as tk
 import tkMessageBox
-import GoogleScraper
-import urllib.parse
+#import GoogleScraper
+#import urllib.parse
 
 class App():
     def __init__(self, master):
@@ -30,7 +30,7 @@ class App():
             command = re.sub('command ', '', queryVar)
             os.system(command)
         elif splitted[0] == "summary":
-            searchVar = re.sub('search ', '', queryVar)
+            searchVar = re.sub('summary ', '', queryVar)
             summaryVar = wikipedia.summary(searchVar, sentences=3)
             tkMessageBox.showinfo("Query Results", summaryVar)
         elif splitted[0] == "search":
